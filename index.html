@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="es" data-paleta="Taller" data-estilo="Techy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IxDF Mendoza · Comunidad</title>
+<meta name="description" content="El grupo local de la Interaction Design Foundation en Mendoza: encuentros, temas y materiales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700&family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* =========================================================
+   DESIGN SYSTEM — variables de Figma
+   ========================================================= */
+
+/* ---------- Colección "Paleta" (4 modos) ---------- */
+[data-paleta="Taller"] {
+  --color-bg: #f4f1ea;
+  --color-surface: #fffdf8;
+  --color-text: #141413;
+  --color-text-muted: #4a4740;
+  --color-border: #141413;
+  --color-primary: #d97757;
+  --color-on-primary: #141413;
+  --color-secondary: #8ccbf2;
+  --color-on-secondary: #141413;
+  --color-chart-1: #e19c83;
+  --color-chart-2: #abd6f0;
+  --color-chart-3: #c3c0bb;
+  --color-fondo-trama: #cce3ed;
+  --color-fondo-degrade: #c5e0ee;
+}
+[data-paleta="Bosque"] {
+  --color-bg: #e2e9dd;
+  --color-surface: #fbfcf8;
+  --color-text: #17201a;
+  --color-text-muted: #4b5a50;
+  --color-border: #17201a;
+  --color-primary: #7fb77e;
+  --color-on-primary: #17201a;
+  --color-secondary: #c9b6f2;
+  --color-on-secondary: #17201a;
+  --color-chart-1: #9dc69a;
+  --color-chart-2: #d1c5ec;
+  --color-chart-3: #b5bdb2;
+  --color-fondo-trama: #d9d6e5;
+  --color-fondo-degrade: #d7d2e6;
+}
+[data-paleta="Noche"] {
+  --color-bg: #14161c;
+  --color-surface: #1e212a;
+  --color-text: #f2f0ea;
+  --color-text-muted: #a9adb8;
+  --color-border: #f2f0ea;
+  --color-primary: #f2c14e;
+  --color-on-primary: #14161c;
+  --color-secondary: #7fd6c2;
+  --color-on-secondary: #14161c;
+  --color-chart-1: #af8e3f;
+  --color-chart-2: #5f9c90;
+  --color-chart-3: #454649;
+  --color-fondo-trama: #233133;
+  --color-fondo-degrade: #34504e;
+}
+[data-paleta="Mono"] {
+  --color-bg: #ffffff;
+  --color-surface: #fbfbfa;
+  --color-text: #37352f;
+  --color-text-muted: #787774;
+  --color-border: #e3e2de;
+  --color-primary: #191919;
+  --color-on-primary: #ffffff;
+  --color-secondary: #efefed;
+  --color-on-secondary: #37352f;
+  --color-chart-1: #5e5e5e;
+  --color-chart-2: #f4f4f2;
+  --color-chart-3: #d3d3d1;
+  --color-fondo-trama: #f9f9f8;
+  --color-fondo-degrade: #f8f8f7;
+}
+
+/* ---------- Colección "Estilo" (4 modos) ---------- */
+/* fondo/cuadricula y fondo/degrade son booleanos en Figma: acá 1 = sí, 0 = no */
+[data-estilo="Neobrutalista"] {
+  --radius-sm: 12px;
+  --radius-lg: 24px;
+  --border-width: 3px;
+  --shadow-offset: 6px;
+  --shadow-blur: 0px;
+  --shadow-color: #141413;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "Bricolage Grotesque", system-ui, sans-serif;
+  --fondo-cuadricula: 1;
+  --fondo-degrade: 0;
+}
+[data-estilo="Minimal"] {
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --border-width: 0px;
+  --shadow-offset: 4px;
+  --shadow-blur: 24px;
+  --shadow-color: #1414131a;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --fondo-cuadricula: 0;
+  --fondo-degrade: 0;
+}
+[data-estilo="Techy"] {
+  --radius-sm: 0px;
+  --radius-lg: 4px;
+  --border-width: 1px;
+  --shadow-offset: 0px;
+  --shadow-blur: 0px;
+  --shadow-color: #14141300;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "JetBrains Mono", ui-monospace, monospace;
+  --fondo-cuadricula: 0;
+  --fondo-degrade: 1;
+}
+[data-estilo="Notion"] {
+  --radius-sm: 4px;
+  --radius-lg: 8px;
+  --border-width: 1px;
+  --shadow-offset: 0px;
+  --shadow-blur: 0px;
+  --shadow-color: #19191900;
+  --font-display: "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --fondo-cuadricula: 0;
+  --fondo-degrade: 0;
+}
+
+/* ---------- Medidas fijas del archivo de Figma ---------- */
+:root, ::backdrop {
+  /* Tipografía (estilos de texto) */
+  --font-size-display-xl: 96px;   /* título del hero */
+  --font-size-display: 56px;
+  --font-size-display-sm: 40px;   /* Display en celular */
+  --font-size-titulo: 32px;
+  --font-size-subtitulo: 24px;
+  --font-size-cuerpo: 18px;
+  --font-size-etiqueta: 14px;
+  --line-height-display: 1.1;
+  --line-height-titulo: 1.2;
+  --line-height-subtitulo: 1.3;
+  --line-height-cuerpo: 1.5;
+  --line-height-etiqueta: 1.4;
+  --tracking-display: -0.02em;
+  --tracking-titulo: -0.01em;
+  --tracking-subtitulo: -0.005em;
+  --tracking-cuerpo: 0em;
+  --tracking-etiqueta: 0.04em;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* Espaciado */
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-14: 14px;
+  --space-16: 16px;
+  --space-18: 18px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-28: 28px;
+  --space-32: 32px;
+  --space-36: 36px;
+  --space-40: 40px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-72: 72px;
+
+  /* Layout */
+  --content-max: 1220px;
+  --gutter: clamp(40px, 6.95vw, 100px);
+  --section-height: 862px;
+  --hero-text-max: 700px;
+  --encabezado-max: 720px;
+  --datos-width: 220px;
+  --modal-max: 1160px;
+  --modal-padding: 56px;
+  --card-imagen-height: 250px;
+  --card-min: 320px;
+  --nav-offset: 104px;
+  --foto-height: 260px;
+  --banner-ratio: 1044 / 334;
+  --grafico-size: 340px;
+  --swatch-size: 20px;
+  --icon-sm: 18px;
+  --icon-md: 20px;
+  --icon-lg: 24px;
+  --icon-button-size: 44px;
+
+  /* Detalles fijos */
+  --radius-pill: 999px;
+  --radius-foto: 16px;
+  --radius-swatch: 4px;
+  --border-fijo: 1px;
+  --border-flecha: 1.5px;
+  --border-modal: 2px;
+  --focus-width: 3px;
+  --opacity-pendiente: 0.45;
+  --color-scrim: rgb(20 20 19 / 0.2);
+  --trama-paso: 76px;
+  --trama-linea: 1.5px;
+  --trama-angulo: -12deg;
+  --degrade-corte: 55%;
+  --grafico-separacion: 8;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: var(--nav-offset); }
+html:has(dialog[open]) { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  position: relative;
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--font-size-cuerpo);
+  line-height: var(--line-height-cuerpo);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  overflow-x: clip;
+}
+[data-estilo="Neobrutalista"] body { font-variation-settings: "opsz" 14; }
+
+h1, h2, h3, p, ul, ol, figure, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+svg.icono { display: block; flex-shrink: 0; fill: none; stroke: currentColor; }
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-text);
+  outline-offset: var(--focus-width);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.saltar {
+  position: absolute; left: var(--space-16); top: var(--space-16); z-index: 10;
+  transform: translateY(-200%);
+  background: var(--color-surface); color: var(--color-text);
+  border: var(--border-fijo) solid var(--color-border);
+  padding: var(--space-10) var(--space-18);
+}
+.saltar:focus { transform: none; }
+
+/* ---------- Fondo según el estilo ---------- */
+.fondo { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fondo__degrade {
+  position: absolute; inset: 0;
+  opacity: var(--fondo-degrade);
+  background: linear-gradient(to bottom, var(--color-fondo-degrade), var(--color-bg) var(--degrade-corte), var(--color-bg));
+}
+.fondo__trama {
+  position: absolute; inset: -50%;
+  opacity: var(--fondo-cuadricula);
+  transform: rotate(var(--trama-angulo));
+  background-image:
+    linear-gradient(to right, var(--color-fondo-trama) var(--trama-linea), transparent var(--trama-linea)),
+    linear-gradient(to bottom, var(--color-fondo-trama) var(--trama-linea), transparent var(--trama-linea));
+  background-size: var(--trama-paso) var(--trama-paso);
+}
+
+/* =========================================================
+   ESTILOS DE TEXTO
+   ========================================================= */
+.t-display {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-display);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--tracking-display);
+}
+.t-display--xl { font-size: clamp(var(--font-size-display), 6.7vw, var(--font-size-display-xl)); }
+.t-titulo {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-titulo);
+  line-height: var(--line-height-titulo);
+  letter-spacing: var(--tracking-titulo);
+}
+.t-subtitulo {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-subtitulo);
+  line-height: var(--line-height-subtitulo);
+  letter-spacing: var(--tracking-subtitulo);
+}
+.t-cuerpo {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-cuerpo);
+  line-height: var(--line-height-cuerpo);
+  letter-spacing: var(--tracking-cuerpo);
+}
+.t-etiqueta {
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-etiqueta);
+  line-height: var(--line-height-etiqueta);
+  letter-spacing: var(--tracking-etiqueta);
+}
+.muted { color: var(--color-text-muted); }
+
+/* =========================================================
+   COMPONENTES
+   ========================================================= */
+
+/* ---------- Botón ---------- */
+.boton {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--space-10);
+  white-space: nowrap;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) 0 var(--shadow-color);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.boton--grande {
+  padding: var(--space-16) var(--space-28);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-cuerpo);
+  line-height: var(--line-height-cuerpo);
+  letter-spacing: var(--tracking-cuerpo);
+}
+.boton--grande .icono { width: var(--icon-lg); height: var(--icon-lg); }
+.boton--chico {
+  padding: var(--space-10) var(--space-18);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-etiqueta);
+  line-height: var(--line-height-etiqueta);
+  letter-spacing: var(--tracking-etiqueta);
+}
+.boton--chico .icono { width: var(--icon-sm); height: var(--icon-sm); }
+.boton--primario { background: var(--color-primary); color: var(--color-on-primary); }
+.boton--secundario { background: var(--color-secondary); color: var(--color-on-secondary); }
+.boton--fantasma { background: transparent; color: var(--color-text); border-color: transparent; box-shadow: none; }
+.boton:not(.boton--fantasma):hover { transform: translate(calc(var(--border-width) * -1), calc(var(--border-width) * -1)); }
+.boton--fantasma:hover span { text-decoration: underline; text-underline-offset: var(--space-4); }
+
+/* ---------- Chip ---------- */
+.chip {
+  display: inline-flex; align-self: flex-start;
+  padding: var(--space-6) var(--space-14);
+  background: var(--color-secondary);
+  color: var(--color-on-secondary);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+}
+
+/* ---------- Nav superior ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--color-surface);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.nav__barra {
+  display: flex; align-items: center; gap: var(--space-32);
+  padding: var(--space-18) var(--gutter);
+}
+.nav__marca { white-space: nowrap; margin-right: auto; }
+.nav__toggle {
+  display: none;
+  width: var(--icon-button-size); height: var(--icon-button-size);
+  align-items: center; justify-content: center;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.nav__toggle .icono { width: var(--icon-lg); height: var(--icon-lg); }
+.nav__toggle .icono--cerrar { display: none; }
+.nav__toggle[aria-expanded="true"] .icono--menu { display: none; }
+.nav__toggle[aria-expanded="true"] .icono--cerrar { display: block; }
+.nav__menu { display: flex; align-items: center; gap: var(--space-32); }
+.nav__links { display: flex; align-items: center; gap: var(--space-32); }
+.nav__link { color: var(--color-text-muted); white-space: nowrap; }
+.nav__link[aria-current="page"], .nav__link:hover { color: var(--color-text); }
+
+/* ---------- Encabezado de sección ---------- */
+.encabezado { display: flex; flex-direction: column; gap: var(--space-12); max-width: var(--encabezado-max); }
+
+/* ---------- Card con imagen ---------- */
+.card {
+  display: flex; flex-direction: column;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) 0 var(--shadow-color);
+  overflow: hidden;
+}
+.card__imagen {
+  height: var(--card-imagen-height);
+  background: var(--color-secondary);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.card__imagen img { width: 100%; height: 100%; object-fit: cover; object-position: var(--foco, 50% 50%); }
+.card__contenido { flex: 1 1 auto; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-14); padding: var(--space-28); }
+.card__contenido .boton { margin-top: auto; }
+
+/* ---------- Item de leyenda ---------- */
+.leyenda { display: flex; flex-direction: column; gap: var(--space-16); }
+.leyenda__item { display: flex; align-items: flex-start; gap: var(--space-14); }
+.leyenda__color {
+  flex-shrink: 0;
+  width: var(--swatch-size); height: var(--swatch-size);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-swatch);
+  margin-top: var(--space-2);
+}
+.leyenda__texto { display: flex; flex-direction: column; gap: var(--space-2); }
+
+/* ---------- Fila de link ---------- */
+.fila-link {
+  display: flex; align-items: center; gap: var(--space-16);
+  padding: var(--space-18) 0;
+  border-bottom: var(--border-fijo) solid var(--color-border);
+  color: var(--color-text);
+}
+.fila-link__texto { flex: 1 1 0; min-width: 0; }
+.fila-link__flecha {
+  flex-shrink: 0; display: flex;
+  padding: var(--space-8);
+  border: var(--border-flecha) solid var(--color-border);
+  border-radius: var(--radius-pill);
+  transition: background .12s ease, color .12s ease;
+}
+.fila-link__flecha .icono { width: var(--icon-md); height: var(--icon-md); }
+a.fila-link:hover .fila-link__flecha { background: var(--color-text); color: var(--color-surface); }
+.fila-link--pendiente { opacity: var(--opacity-pendiente); cursor: not-allowed; }
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--color-surface);
+  border-top: var(--border-width) solid var(--color-border);
+  display: flex; align-items: center; gap: var(--space-32);
+  padding: var(--space-32) var(--gutter);
+}
+.footer__marca { display: flex; flex-direction: column; gap: var(--space-4); margin-right: auto; }
+.footer__links { display: flex; gap: var(--space-28); }
+.footer__links a:hover { text-decoration: underline; text-underline-offset: var(--space-4); }
+
+/* ---------- Modal ---------- */
+.modal {
+  width: min(var(--modal-max), calc(100vw - 2 * var(--gutter)));
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--space-40));
+  padding: 0;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: var(--border-modal) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) var(--shadow-blur) 0 var(--shadow-color);
+  overscroll-behavior: contain;
+}
+.modal::backdrop { background: var(--color-scrim); }
+.modal__cuerpo { position: relative; display: flex; flex-direction: column; gap: var(--space-36); padding: var(--modal-padding); }
+.modal__cerrar {
+  position: absolute; top: var(--space-36); right: calc(var(--modal-padding) - var(--space-4));
+  display: flex; padding: var(--space-10);
+  background: var(--color-surface);
+  border: var(--border-modal) solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+.modal__cerrar .icono { width: var(--icon-lg); height: var(--icon-lg); }
+.modal__cerrar:hover { background: var(--color-text); color: var(--color-surface); }
+.modal__contenido-slot { display: contents; }
+.modal__encabezado { display: flex; flex-direction: column; gap: var(--space-16); }
+.modal__fotos {
+  display: flex; gap: var(--space-16);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+.modal__fotos img {
+  flex-shrink: 0;
+  height: var(--foto-height); width: auto;
+  border: var(--border-modal) solid var(--color-border);
+  border-radius: var(--radius-foto);
+  scroll-snap-align: start;
+}
+.modal__banner {
+  aspect-ratio: var(--banner-ratio);
+  border: var(--border-modal) solid var(--color-border);
+  border-radius: var(--radius-foto);
+  overflow: hidden;
+}
+.modal__banner img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 10%; }
+.modal__contenido { display: flex; flex-direction: column; gap: var(--space-56); }
+.modal__actividad { display: flex; flex-direction: column; gap: var(--space-12); }
+.modal__detalles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-24); }
+.modal__bloque { display: flex; flex-direction: column; gap: var(--space-12); }
+.modal__chips { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.modal__links-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--space-16); row-gap: var(--space-8); }
+
+/* =========================================================
+   LAYOUT DE LA PÁGINA
+   ========================================================= */
+.contenedor {
+  width: 100%;
+  max-width: calc(var(--content-max) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex; flex-direction: column; gap: var(--space-40);
+}
+.seccion { padding-block: var(--space-56); }
+
+/* Hero */
+.hero { display: flex; align-items: center; gap: var(--space-64); }
+.hero__presentacion { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-28); }
+.hero__bajada { max-width: var(--hero-text-max); }
+.hero__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-20); padding-top: var(--space-8); }
+.hero__datos { flex-shrink: 0; width: var(--datos-width); }
+.dato { display: flex; flex-direction: column; gap: var(--space-2); padding: var(--space-16) 0; border-bottom: var(--border-fijo) solid var(--color-border); }
+
+/* Encuentros */
+.encuentros, .temas { display: flex; flex-direction: column; justify-content: center; gap: var(--space-40); }
+/* Scroll lateral cuando las cards no entran */
+.cards {
+  display: flex; gap: var(--space-24); align-items: stretch;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--space-8);
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+  /* aire para sombras y foco sin que el scroll los corte */
+  padding: var(--space-8) calc(var(--space-8) + var(--shadow-offset)) calc(var(--space-8) + var(--shadow-offset)) var(--space-8);
+  margin: calc(var(--space-8) * -1);
+}
+.cards > .card { flex: 1 0 var(--card-min); scroll-snap-align: start; }
+
+/* Próximos temas */
+.temas__grafico { display: flex; align-items: center; gap: var(--space-72); }
+.grafico { flex-shrink: 0; width: var(--grafico-size); height: var(--grafico-size); overflow: visible; }
+.grafico path { stroke: var(--color-border); stroke-width: var(--border-width); stroke-linejoin: round; }
+.leyenda__item .t-cuerpo { white-space: nowrap; }
+.encuesta {
+  display: flex; align-items: center; gap: var(--space-24);
+  padding: var(--space-24) var(--space-28);
+  background: var(--color-surface);
+  border: var(--border-fijo) solid var(--color-border);
+  border-radius: var(--radius-foto);
+}
+.encuesta__texto { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+/* Desktop: las tres secciones del mismo alto */
+@media (min-width: 1024px) {
+  .seccion { min-height: var(--section-height); }
+}
+
+/* Tablet */
+@media (max-width: 1023px) {
+  :root { --gutter: 40px; }
+  .hero { flex-direction: column; align-items: stretch; gap: var(--space-40); }
+  .hero__datos { width: auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--space-24); }
+  .temas__grafico { gap: var(--space-40); }
+  .leyenda__item .t-cuerpo { white-space: normal; }
+  .modal__detalles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Nav: hamburguesa cuando la fila de links ya no entra (celular y tablet angosta) */
+@media (max-width: 899px) {
+  .nav__barra { flex-wrap: wrap; padding: 0; gap: 0 var(--space-16); }
+  .nav__marca { padding-left: var(--gutter); }
+  .nav__toggle { display: inline-flex; margin: var(--space-14) var(--gutter) var(--space-14) 0; }
+  .nav__menu { flex-basis: 100%; }
+  .nav__menu {
+    display: none;
+    flex-direction: column; align-items: stretch; gap: 0;
+    padding-bottom: var(--space-24);
+  }
+  .nav.is-open .nav__menu { display: flex; max-height: calc(100dvh - var(--nav-offset)); overflow-y: auto; }
+  .nav__links { flex-direction: column; align-items: stretch; gap: 0; }
+  .nav__link {
+    display: block;
+    padding: var(--space-16) var(--gutter);
+    border-top: var(--border-width) solid var(--color-border);
+    color: var(--color-text);
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-subtitulo);
+    line-height: var(--line-height-subtitulo);
+    letter-spacing: var(--tracking-subtitulo);
+  }
+  .nav__cta { padding: var(--space-8) var(--gutter) 0; }
+  .nav__cta .boton { width: 100%; }
+}
+
+/* Celular */
+@media (max-width: 639px) {
+  :root { --gutter: 20px; --modal-padding: 24px; --nav-offset: 80px; }
+  body { gap: var(--space-24); }
+
+  .seccion { padding-block: var(--space-32); }
+  .hero__datos { grid-template-columns: minmax(0, 1fr); }
+  .hero__acciones .boton { flex: 1 1 auto; }
+  .cards > .card { flex-basis: 82%; }
+  .temas__grafico { flex-direction: column; align-items: stretch; }
+  .grafico { width: 100%; max-width: var(--grafico-size); height: auto; aspect-ratio: 1; align-self: center; }
+  .encuesta { flex-direction: column; align-items: flex-start; padding: var(--space-20); }
+
+  .footer { flex-direction: column; align-items: flex-start; gap: var(--space-20); }
+  .footer__links { flex-direction: column; gap: var(--space-12); }
+
+  .modal { width: calc(100vw - 2 * var(--gutter)); max-height: calc(100dvh - 2 * var(--gutter)); }
+  .modal__cerrar { top: var(--space-16); right: var(--space-16); }
+  .modal__encabezado { padding-right: var(--space-56); }
+  .modal__encabezado .t-display { font-size: var(--font-size-display-sm); }
+  .modal__fotos img { height: calc(var(--foto-height) * 0.8); }
+  .modal__contenido { gap: var(--space-40); }
+  .modal__links-lista { grid-template-columns: minmax(0, 1fr); }
+  .modal__detalles { gap: var(--space-16); }
+}
+</style>
+</head>
+<body>
+<a class="saltar t-etiqueta" href="#contenido">Saltar al contenido</a>
+
+<div class="fondo" aria-hidden="true">
+  <div class="fondo__degrade"></div>
+  <div class="fondo__trama"></div>
+</div>
+
+<!-- Íconos (trazos exportados de Figma; el color sale de color/text) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-flecha-18" viewBox="0 0 18 18"><path d="M3.75 9H14.25M9.75 13.5L14.25 9L9.75 4.5" stroke-width="1.5"/></symbol>
+  <symbol id="i-flecha-24" viewBox="0 0 24 24"><path d="M5 12H19M13 18L19 12L13 6" stroke-width="2"/></symbol>
+  <symbol id="i-arrow-up-right" viewBox="0 0 20 20"><path d="M5.83333 14.1667L14.1667 5.83333M14.1667 12.5V5.83333H7.5" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-cerrar-modal" viewBox="0 0 24 24"><path d="M6 6L18 18M18 6L6 18" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M6 6L18 18M18 6L6 18" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7H20M4 12H20M4 17H20" stroke-width="2" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- Nav superior -->
+<header class="nav" id="nav">
+  <nav class="nav__barra" aria-label="Principal">
+    <a class="nav__marca t-subtitulo" href="#inicio">IxDF Mendoza</a>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+      <span class="sr-only">Menú</span>
+      <svg class="icono icono--menu" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="icono icono--cerrar" aria-hidden="true"><use href="#i-cerrar"/></svg>
+    </button>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__links t-cuerpo" id="nav-links"></ul>
+      <div class="nav__cta" id="nav-cta"></div>
+    </div>
+  </nav>
+</header>
+
+<main class="contenedor" id="contenido">
+  <!-- Hero -->
+  <section class="seccion hero" id="inicio" aria-labelledby="hero-titulo">
+    <div class="hero__presentacion">
+      <span class="chip t-etiqueta">COMUNIDAD LOCAL</span>
+      <h1 class="t-display t-display--xl" id="hero-titulo">IxDF Mendoza</h1>
+      <p class="hero__bajada t-subtitulo muted" id="hero-bajada"></p>
+      <div class="hero__acciones" id="hero-acciones"></div>
+    </div>
+    <dl class="hero__datos" id="hero-datos"></dl>
+  </section>
+
+  <!-- Encuentros -->
+  <section class="seccion encuentros" id="encuentros" aria-labelledby="encuentros-titulo">
+    <header class="encabezado">
+      <p class="t-etiqueta muted">ENCUENTROS</p>
+      <h2 class="t-titulo" id="encuentros-titulo"></h2>
+      <p class="t-cuerpo muted">Desde septiembre nos juntamos una vez por mes, en persona y online.</p>
+    </header>
+    <ul class="cards" id="cards"></ul>
+  </section>
+
+  <!-- Próximos temas -->
+  <section class="seccion temas" id="temas" aria-labelledby="temas-titulo">
+    <header class="encabezado">
+      <p class="t-etiqueta muted">PRÓXIMAMENTE</p>
+      <h2 class="t-titulo" id="temas-titulo">Temáticas para la próxima juntada</h2>
+      <p class="t-cuerpo muted">Card sorting con las ideas de las 19 personas del Brunch &amp; Diseño, agrupadas por tema.</p>
+    </header>
+    <div class="temas__grafico">
+      <svg class="grafico" id="grafico" viewBox="0 0 340 340" role="img" aria-labelledby="grafico-desc"><title id="grafico-desc"></title></svg>
+      <ul class="leyenda" id="leyenda" aria-label="Temas más votados"></ul>
+    </div>
+    <aside class="encuesta" aria-labelledby="encuesta-titulo">
+      <div class="encuesta__texto">
+        <h3 class="t-subtitulo" id="encuesta-titulo">¿Tenés una idea?</h3>
+        <p class="t-cuerpo muted">Contanos qué te gustaría ver en los próximos encuentros y sumate a la comunidad.</p>
+        <p class="t-etiqueta muted">Ojo: la página tiene un bug conocido. Al entrar puede no mostrar ninguna respuesta; esperá unos segundos y se carga bien.</p>
+      </div>
+      <div id="encuesta-cta"></div>
+    </aside>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer" id="contacto">
+  <div class="footer__marca">
+    <p class="t-subtitulo">IxDF Mendoza</p>
+    <p class="t-etiqueta muted">Comunidad local de la Interaction Design Foundation</p>
+  </div>
+  <ul class="footer__links t-cuerpo" id="footer-links" aria-label="Redes"></ul>
+</footer>
+
+<!-- Modal -->
+<dialog class="modal" id="modal" aria-labelledby="modal-titulo">
+  <div class="modal__cuerpo">
+    <button class="modal__cerrar" type="button" id="modal-cerrar">
+      <span class="sr-only">Cerrar</span>
+      <svg class="icono" aria-hidden="true"><use href="#i-cerrar-modal"/></svg>
+    </button>
+    <div class="modal__contenido-slot" id="modal-contenido"></div>
+  </div>
+</dialog>
+
+<script>
+/* =========================================================
+   CONTENIDO — editá acá, sin tocar el HTML.
+   pendiente: true (o url vacía) → se muestra en gris y no se puede tocar.
+   ========================================================= */
+const sitio = {
+  bajada: "El grupo local de la Interaction Design Foundation en Mendoza: un espacio para aprender, compartir y crecer en diseño, encuentro a encuentro.",
+  whatsapp: "https://chat.whatsapp.com/B6ASSNdZkIWJVjz1zzUKo8",
+  encuesta: "https://localgroupmendozaixdf.vercel.app/",
+  nav: [
+    { texto: "Inicio", url: "#inicio", actual: true },
+    { texto: "Encuentros", url: "#encuentros" },
+    { texto: "Próximos temas", url: "#temas" },
+    { texto: "Contacto", url: "#contacto" },
+  ],
+  datos: [
+    { valor: "3", texto: "encuentros desde septiembre" },
+    { valor: "19", texto: "personas en el primero" },
+    { valor: "1", texto: "workshop virtual" },
+  ],
+  redes: [
+    { texto: "Instagram", url: "" },
+    { texto: "LinkedIn", url: "" },
+    { texto: "IxDF Mendoza", url: "https://ixdf.org/local-group/south-america/argentina/mendoza?r=guadalupe-5" },
+  ],
+};
+
+const encuentros = [
+  {
+    id: "brunch",
+    fecha: "26/9",
+    etiqueta: "26/9 · CHILL MUSIC&COFFEE",
+    titulo: "Brunch & Diseño",
+    resumen: "En Chill Music&Coffee: 19 personas, brunch y card sorting.",
+    boton: "Ver detalle",
+    portada: { foco: "50% 50%", src: "assets/portada-brunch.jpg", alt: "Flyer del Brunch & Diseño, 26 de septiembre en Chill Music&Coffee" },
+    actividad: "El primer encuentro del grupo: 19 personas, brunch y un card sorting para elegir los temas de los próximos encuentros. La votaron la juntada más creativa del año.",
+    fotos: [
+      { src: "assets/brunch-1.jpg", alt: "Resultado del card sorting: seis grupos de ideas con la cantidad de votos de cada tema" },
+      { src: "assets/brunch-2.jpg", alt: "Tarjetas de presentación «Hola, soy…» colgadas con hilo" },
+      { src: "assets/brunch-3.jpg", alt: "Mesa larga del brunch con el grupo charlando" },
+      { src: "assets/brunch-4.jpg", alt: "Foto grupal del primer encuentro" },
+    ],
+    links: [
+      { texto: "Evento en la página de IxDF", url: "https://ixdf.org/meetups/ixdf-mendoza-brunch-y-diseno-sep-26th-2026?r=guadalupe-5" },
+    ],
+  },
+  {
+    id: "picnic",
+    fecha: "24/10",
+    etiqueta: "24/10 · CLUB DEL CAFÉ",
+    titulo: "Picnic de Diseño",
+    resumen: "En el club del café: mate, charla y colegas.",
+    boton: "Ver detalle",
+    portada: { foco: "50% 22%", src: "assets/portada-picnic.jpg", alt: "Flyer del Picnic de Diseño: tutifruti, dibujitos, mate y algo para compartir" },
+    actividad: "Festejo del Día del Diseñador/a: picnic, tutifruti y dibujitos, con mate y algo para compartir. Cambio de planes a último momento: nos vimos en el Club del Café.",
+    fotos: [
+      { src: "assets/picnic-1.jpg", alt: "Selfie del grupo en una mesa del Club del Café" },
+      { src: "assets/picnic-2.jpg", alt: "Una participante dibujando en una hoja" },
+      { src: "assets/picnic-3.jpg", alt: "Un participante concentrado dibujando" },
+      { src: "assets/picnic-4.jpg", alt: "Lámina pintada durante el picnic" },
+    ],
+    links: [
+      { texto: "Evento en la página de IxDF", url: "https://ixdf.org/meetups/ixdf-mendoza-picnic-tutifruti-dibujitos-oct-24th-2026?r=guadalupe-5" },
+    ],
+  },
+  {
+    id: "workshop",
+    fecha: "HOY · 21/11",
+    etiqueta: "HOY · 21/11 · VIRTUAL",
+    titulo: "Workshop de IA",
+    resumen: "Del Diseño a la Web con Claude, virtual y grabado.",
+    boton: "Ver detalle",
+    portada: { foco: "50% 34%", src: "assets/portada-workshop.jpg", alt: "Flyer del workshop Del Diseño a la Web con Claude" },
+    actividad: "Del Diseño a la Web con Claude: llevamos un diseño de Figma a una web publicada, paso a paso y en vivo. Virtual, gratis y grabado. Facilita Guadalupe Badallo, con Kaku en las preguntas.",
+    detalles: [
+      { etiqueta: "CUÁNDO", valor: "Sábado 21/11, 11:00 (ARG)" },
+      { etiqueta: "DÓNDE", valor: "Virtual" },
+      { etiqueta: "COSTO", valor: "Gratis · se graba" },
+      { etiqueta: "FACILITAN", valor: "Guadalupe Badallo, con Kaku en las preguntas" },
+    ],
+    temario: ["FIGMA MCP", "CLAUDE CODE", "GITHUB", "VERCEL"],
+    banner: { src: "assets/banner-workshop.jpg", alt: "Del Diseño a la Web con Claude. Sábado 21/11, 11:00 (ARG). Virtual, gratis, se graba. Figma MCP, Claude Code, GitHub y Vercel." },
+    links: [
+      { texto: "Inscripción en la plataforma de IxDF", url: "https://ixdf.org/meetups/ixdf-mendoza-del-diseno-a-la-web-con-claude-workshop-de-ia-nov-16th-2026?r=guadalupe-5" },
+      { texto: "Grabación en YouTube · pendiente", url: "", pendiente: true },
+      { texto: "Cheat sheet en PDF: links, prompts y checklist", url: "", pendiente: true },
+      { texto: "Materiales: archivo de Figma en la Comunidad", url: "https://www.figma.com/community/file/1705769957340413540" },
+    ],
+  },
+];
+
+const temas = [
+  { nombre: "Talleres, cursos y capacitación", ideas: 11 },
+  { nombre: "IA aplicada al diseño", ideas: 9 },
+  { nombre: "Networking y coworking", ideas: 9 },
+  { nombre: "Compartir experiencias y catarsis", ideas: 9 },
+  { nombre: "Social y recreativo", ideas: 7 },
+  { nombre: "Portfolio y desarrollo profesional", ideas: 6 },
+];
+
+/* =========================================================
+   COMPONENTES
+   ========================================================= */
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const icono = (id) => `<svg class="icono" aria-hidden="true"><use href="#${id}"/></svg>`;
+const esExterno = (url) => /^https?:/.test(url);
+const destino = (url) => (url ? url : "#");
+const attrsLink = (url) => `href="${esc(destino(url))}"${esExterno(url) ? ' target="_blank" rel="noopener"' : ""}`;
+
+/** Botón — tipo: primario | secundario | fantasma · tamaño: grande | chico */
+function Boton({ texto, tipo = "primario", tamano = "chico", icono: conIcono = true, url, attrs = "" }) {
+  const clase = `boton boton--${tipo} boton--${tamano}`;
+  const ico = conIcono ? icono(tamano === "grande" ? "i-flecha-24" : "i-flecha-18") : "";
+  const externo = url && esExterno(url) ? '<span class="sr-only"> (se abre en otra pestaña)</span>' : "";
+  const inner = `<span>${esc(texto)}</span>${externo}${ico}`;
+  return url !== undefined
+    ? `<a class="${clase}" ${attrsLink(url)} ${attrs}>${inner}</a>`
+    : `<button class="${clase}" type="button" ${attrs}>${inner}</button>`;
+}
+
+const Chip = (texto) => `<span class="chip t-etiqueta">${esc(texto)}</span>`;
+
+function Card(e) {
+  return `<li class="card">
+    <div class="card__imagen"><img style="--foco: ${esc(e.portada.foco || "50% 50%")}" src="${esc(e.portada.src)}" alt="${esc(e.portada.alt)}" loading="lazy"></div>
+    <div class="card__contenido">
+      ${Chip(e.fecha)}
+      <h3 class="t-subtitulo">${esc(e.titulo)}</h3>
+      <p class="t-cuerpo muted">${esc(e.resumen)}</p>
+      ${Boton({ texto: e.boton, tipo: "secundario", attrs: `data-abrir="${esc(e.id)}" aria-haspopup="dialog" aria-label="${esc(e.boton)}: ${esc(e.titulo)}"` })}
+    </div>
+  </li>`;
+}
+
+const ItemLeyenda = (t) => `<li class="leyenda__item">
+    <span class="leyenda__color" style="background: var(${t.color})"></span>
+    <span class="leyenda__texto">
+      <span class="t-cuerpo">${esc(t.nombre)}</span>
+      <span class="t-etiqueta muted">${t.ideas} ideas · ${t.porcentaje}%</span>
+    </span>
+  </li>`;
+
+function FilaLink(l) {
+  const flecha = `<span class="fila-link__flecha">${icono("i-arrow-up-right")}</span>`;
+  const texto = `<span class="fila-link__texto t-cuerpo">${esc(l.texto)}</span>`;
+  if (l.pendiente || !l.url) return `<li><span class="fila-link fila-link--pendiente" aria-disabled="true">${texto}${flecha}</span></li>`;
+  return `<li><a class="fila-link" ${attrsLink(l.url)}>${texto}${flecha}</a></li>`;
+}
+
+function Modal(e) {
+  const media = e.banner
+    ? `<figure class="modal__banner"><img src="${esc(e.banner.src)}" alt="${esc(e.banner.alt)}"></figure>`
+    : `<div class="modal__fotos" role="region" aria-label="Fotos del encuentro" tabindex="0">
+        ${e.fotos.map((f) => `<img src="${esc(f.src)}" alt="${esc(f.alt)}" width="640" height="440">`).join("")}
+      </div>`;
+  return `<header class="modal__encabezado">
+      ${Chip(e.etiqueta)}
+      <h2 class="t-display" id="modal-titulo">${esc(e.titulo)}</h2>
+    </header>
+    ${media}
+    <div class="modal__contenido">
+      <section class="modal__actividad" aria-labelledby="modal-actividad">
+        <h3 class="t-etiqueta muted" id="modal-actividad">ACTIVIDAD</h3>
+        <p class="t-cuerpo">${esc(e.actividad)}</p>
+      </section>
+      ${e.detalles ? `<section class="modal__bloque" aria-labelledby="modal-detalles">
+        <h3 class="t-etiqueta muted" id="modal-detalles">DETALLES</h3>
+        <dl class="modal__detalles">${e.detalles.map((d) => `<div class="dato"><dt class="t-etiqueta muted">${esc(d.etiqueta)}</dt><dd class="t-cuerpo">${esc(d.valor)}</dd></div>`).join("")}</dl>
+      </section>` : ""}
+      ${e.temario ? `<section class="modal__bloque" aria-labelledby="modal-temario">
+        <h3 class="t-etiqueta muted" id="modal-temario">QUÉ VAMOS A USAR</h3>
+        <ul class="modal__chips">${e.temario.map((t) => `<li>${Chip(t)}</li>`).join("")}</ul>
+      </section>` : ""}
+      <section aria-labelledby="modal-links">
+        <h3 class="t-etiqueta muted" id="modal-links">LINKS Y MATERIALES</h3>
+        <ul class="modal__links-lista">${e.links.map(FilaLink).join("")}</ul>
+      </section>
+    </div>`;
+}
+
+/* Gráfico de torta "explotada" generado desde los datos */
+function Grafico(svg, datos) {
+  const css = getComputedStyle(document.documentElement);
+  const sep = parseFloat(css.getPropertyValue("--grafico-separacion")) || 0;
+  const c = 170, r = 150;
+  const total = datos.reduce((s, t) => s + t.ideas, 0);
+  const punto = (a) => [c + r * Math.sin(a), c - r * Math.cos(a)];
+  let a0 = 0;
+  const paths = datos.map((t) => {
+    const a1 = a0 + (t.ideas / total) * Math.PI * 2;
+    const m = (a0 + a1) / 2;
+    const [x0, y0] = punto(a0), [x1, y1] = punto(a1);
+    const grande = a1 - a0 > Math.PI ? 1 : 0;
+    const dx = (sep * Math.sin(m)).toFixed(2), dy = (-sep * Math.cos(m)).toFixed(2);
+    a0 = a1;
+    return `<path d="M${c} ${c}L${x0.toFixed(2)} ${y0.toFixed(2)}A${r} ${r} 0 ${grande} 1 ${x1.toFixed(2)} ${y1.toFixed(2)}Z" transform="translate(${dx} ${dy})" style="fill: var(${t.color})"/>`;
+  });
+  svg.insertAdjacentHTML("beforeend", paths.join(""));
+  svg.querySelector("title").textContent =
+    "Temas más votados: " + datos.map((t) => `${t.nombre}, ${t.ideas} ideas (${t.porcentaje}%)`).join("; ");
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+const $ = (id) => document.getElementById(id);
+
+// Paleta y estilo opcionales por URL: ?paleta=Noche&estilo=Neobrutalista
+const params = new URLSearchParams(location.search);
+if (params.get("paleta")) document.documentElement.dataset.paleta = params.get("paleta");
+if (params.get("estilo")) document.documentElement.dataset.estilo = params.get("estilo");
+
+$("nav-links").innerHTML = sitio.nav
+  .map((l) => `<li><a class="nav__link" href="${esc(l.url)}"${l.actual ? ' aria-current="page"' : ""}>${esc(l.texto)}</a></li>`)
+  .join("");
+$("nav-cta").innerHTML = Boton({ texto: "Sumarme", tipo: "primario", tamano: "chico", url: sitio.encuesta });
+
+$("hero-bajada").textContent = sitio.bajada;
+$("hero-acciones").innerHTML =
+  Boton({ texto: "Grupo de WhatsApp", tipo: "primario", tamano: "grande", icono: false, url: sitio.whatsapp }) +
+  Boton({ texto: "Ver encuentros", tipo: "fantasma", tamano: "grande", url: "#encuentros" });
+$("hero-datos").innerHTML = sitio.datos
+  .map((d) => `<div class="dato"><dt class="t-titulo">${esc(d.valor)}</dt><dd class="t-etiqueta muted">${esc(d.texto)}</dd></div>`)
+  .join("");
+
+$("encuentros-titulo").textContent = `${encuentros.length} encuentros`;
+$("cards").innerHTML = encuentros.map(Card).join("");
+
+const totalIdeas = temas.reduce((s, t) => s + t.ideas, 0);
+const temasConColor = temas.map((t, i) => ({
+  ...t,
+  porcentaje: Math.round((t.ideas / totalIdeas) * 100),
+  color: `--color-chart-${(i % 3) + 1}`,
+}));
+Grafico($("grafico"), temasConColor);
+$("leyenda").innerHTML = temasConColor.map(ItemLeyenda).join("");
+
+$("encuesta-cta").innerHTML = Boton({ texto: "Ir a la encuesta", tipo: "secundario", url: sitio.encuesta });
+
+$("footer-links").innerHTML = sitio.redes
+  .map((r) => (r.url ? `<li><a ${attrsLink(r.url)}>${esc(r.texto)}</a></li>` : `<li><span>${esc(r.texto)}</span></li>`))
+  .join("");
+
+/* =========================================================
+   COMPORTAMIENTO
+   ========================================================= */
+// Menú hamburguesa
+const nav = $("nav");
+const toggle = nav.querySelector(".nav__toggle");
+toggle.addEventListener("click", () => {
+  const abierto = toggle.getAttribute("aria-expanded") === "true";
+  toggle.setAttribute("aria-expanded", String(!abierto));
+  nav.classList.toggle("is-open", !abierto);
+});
+nav.querySelectorAll(".nav__menu a").forEach((a) =>
+  a.addEventListener("click", () => {
+    toggle.setAttribute("aria-expanded", "false");
+    nav.classList.remove("is-open");
+  })
+);
+
+// Links sin destino todavía: no saltan al inicio
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest('a[href="#"]');
+  if (a) ev.preventDefault();
+});
+
+// Modal
+const modal = $("modal");
+let disparador = null;
+document.addEventListener("click", (ev) => {
+  const b = ev.target.closest("[data-abrir]");
+  if (!b) return;
+  const e = encuentros.find((x) => x.id === b.dataset.abrir);
+  if (!e) return;
+  disparador = b;
+  $("modal-contenido").innerHTML = Modal(e);
+  modal.showModal();
+  modal.scrollTop = 0;
+  $("modal-cerrar").focus();
+});
+$("modal-cerrar").addEventListener("click", () => modal.close());
+modal.addEventListener("click", (ev) => {
+  // Tocar afuera: el clic cae en el backdrop (fuera del rectángulo del diálogo)
+  if (ev.target !== modal) return;
+  const r = modal.getBoundingClientRect();
+  const dentro = ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom;
+  if (!dentro) modal.close();
+});
+modal.addEventListener("close", () => {
+  if (disparador) disparador.focus();
+});
+</script>
+</body>
+</html>
